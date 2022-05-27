@@ -1,5 +1,6 @@
 import React from 'react'
 import { IWish, Wish } from '../Wish/Wish'
+import { useFetch } from '../common/hooks/useFetch'
 
 export const WishList: React.FC = () => {
   const wishes: IWish[] = [
@@ -8,6 +9,8 @@ export const WishList: React.FC = () => {
       description: 'here',
     },
   ]
+  // const { request } = useFetch('/something')
+
   return (
     <div>
       {wishes.map((wish, i) => {
