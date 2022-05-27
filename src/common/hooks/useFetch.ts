@@ -2,17 +2,17 @@ import { useState } from 'react'
 
 interface UseFetch {
   isFetching: boolean
-  data: any
-  error: any
-  request: (method?: string, body?: any) => {}
+  data: Record<string, unknown>
+  error: Error
+  request: (method?: string, body?: Record<string, unknown>) => void
 }
 
 export const useFetch = (endpoint: string): UseFetch => {
   const [isFetching, setIsFetching] = useState<boolean>(false)
-  const [data, setData] = useState<any>(null)
-  const [error, setError] = useState<any>(null)
+  const [data, setData] = useState<Record<string, unknown>>(null)
+  const [error, setError] = useState<Error>(null)
 
-  const request = async (method: string = 'GET', body?: any) => {
+  const request = async (method = 'GET', body?: Record<string, unknown>) => {
     setIsFetching(true)
     try {
       const response = await fetch(endpoint, {
