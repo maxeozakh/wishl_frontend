@@ -1,4 +1,0 @@
-- fetch hook
-- cryptolinks
-- wishes crud
-- server at heroku

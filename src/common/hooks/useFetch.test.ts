@@ -2,7 +2,7 @@ import { act, renderHook } from '@testing-library/react-hooks'
 import { useFetch } from './useFetch'
 
 describe('useFetch', () => {
-  const setupFetchStub = (data: any, isOk = true) => {
+  const setupFetchStub = (data: Record<string, unknown>, isOk = true) => {
     return function fetchStub() {
       return new Promise((resolve) => {
         setTimeout(() => {
@@ -20,6 +20,7 @@ describe('useFetch', () => {
     global.fetch = jest.fn().mockImplementation(setupFetchStub({}))
   })
   afterAll(() => {
+    // @ts-expect-error not much sence in types for mock
     global.fetch.mockClear()
     global.fetch = globalFetch
   })
@@ -29,7 +30,7 @@ describe('useFetch', () => {
     const { result } = renderHook(() => useFetch(endpoint))
 
     const { isFetching, data, error, request } = result.current
-    expect(isFetching).toBe(false)
+    expect(isFetching).toBe(null)
     expect(data).toBe(null)
     expect(error).toBe(null)
     expect(typeof request).toBe('function')
