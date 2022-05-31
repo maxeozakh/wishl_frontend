@@ -16,6 +16,8 @@ export const useFetch = (endpoint: string): UseFetch => {
 
   const request = async (method = 'GET', body?: EncryptedData) => {
     isMounted && setIsFetching(true)
+
+    
     try {
       const response = await fetch(endpoint, {
         mode: 'cors',
