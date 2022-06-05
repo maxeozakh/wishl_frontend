@@ -8,6 +8,12 @@ interface UseFetch {
   request: (method?: string, body?: EncryptedData) => void
 }
 
+export const SERVER_ADDRESS = 'http://127.0.0.1:5000'
+
+export const endpoints = {
+  createWishList: `${SERVER_ADDRESS}/create`,
+  getWishList: `${SERVER_ADDRESS}`,
+}
 export const useFetch = (endpoint: string): UseFetch => {
   const [isFetching, setIsFetching] = useState<null | boolean>(null)
   const [data, setData] = useState<Record<string, unknown>>(null)
