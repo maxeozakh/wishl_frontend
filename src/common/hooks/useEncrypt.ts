@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { IWish } from '../../Wish/Wish'
-import { nanoid } from 'nanoid'
+import { WishInterface } from '../../Wish/Wish'
 
 export interface EncryptedData {
   uid: string
@@ -11,7 +10,7 @@ const ArrayBufferToString = (buf: ArrayBufferLike) => {
   return String.fromCharCode.apply(null, new Uint8Array(buf))
 }
 
-export const useEncrypt = (content: IWish[]) => {
+export const useEncrypt = (content: WishInterface[]) => {
   const [isGenerating, setIsGenerating] = useState<null | boolean>(null)
   const [encryptedData, setEncryptedData] = useState<null | EncryptedData>(null)
 

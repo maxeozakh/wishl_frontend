@@ -1,12 +1,13 @@
 import React from 'react'
 
-export interface IWish {
+export interface WishInterface {
   title: string
+  id: string
   description?: string
   imageURL?: string
 }
 
-export const Wish: React.FC<IWish> = ({ title, description, imageURL }) => {
+export const Wish: React.FC<WishInterface> = ({ title, description, imageURL }) => {
   return (
     <div data-testid="wish">
       <h3 data-testid="wish-title">{title}</h3>

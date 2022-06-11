@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { IWish } from '../../Wish/Wish'
+import { WishInterface } from '../../Wish/Wish'
 
 const StringToArrayBuffer = (str) => {
   const buf = new ArrayBuffer(str.length)
@@ -13,7 +13,7 @@ const StringToArrayBuffer = (str) => {
 
 export const useDecrypt = (encryptedString, key: string) => {
   const [isDecrypting, setIsDecrypting] = useState<null | boolean>(null)
-  const [decryptedData, setDecryptedData] = useState<null | IWish[]>(null)
+  const [decryptedData, setDecryptedData] = useState<null | WishInterface[]>(null)
 
   useEffect(() => {
     const getDecrypted = async () => {
@@ -48,7 +48,7 @@ export const useDecrypt = (encryptedString, key: string) => {
     if (decryptedData === null && isDecrypting === null) {
       getDecrypted().then((res) => setDecryptedData(res))
     }
-  }, [encryptedString, key])
+  }, [decryptedData, encryptedString, isDecrypting, key])
 
   return { isDecrypting, decryptedData }
 }

@@ -1,8 +1,8 @@
-import { IWish } from '../../Wish/Wish'
+import { WishInterface } from '../../Wish/Wish'
 import { useEncrypt } from './useEncrypt'
 import { endpoints, useFetch } from './useFetch'
 
-export const useUploadWishList = (wishes: IWish[]) => {
+export const useUploadWishList = (wishes: WishInterface[]) => {
   const { encryptedData, isGenerating } = useEncrypt(wishes)
   const { request } = useFetch(endpoints.createWishList)
 

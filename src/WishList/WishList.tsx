@@ -1,33 +1,24 @@
 import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { useDownloadWishList } from '../common/hooks/useDownloadWishList'
 import { useUploadWishList } from '../common/hooks/useUploadWishList'
-import { IWish, Wish } from '../Wish/Wish'
+import { WishInterface, Wish } from '../Wish/Wish'
+import { getWishes } from '../wishesSlice'
 
 export const WishList: React.FC = () => {
-  const wishes: IWish[] = [
-    {
-      title: 'first wish ever',
-      description: 'here',
-    },
-  ]
+  const wishes = useSelector(getWishes)
+  console.log('wishes', wishes)
 
-  const { upload, uid } = useUploadWishList(wishes)
-
-  const decryptedData = useDownloadWishList('5m9JajJHvmKGlgilkgzOFw')
   useEffect(() => {
-    if (decryptedData) {
-      console.log(decryptedData)
-    }
-  }, [decryptedData])
+    console.log('wishes in component', wishes)
+  }, [wishes])
 
   return (
     <div>
       {wishes.map((wish, i) => {
-        const { title, description } = wish
-        return <Wish key={i} title={title} description={description} />
+        const { title, description, imageURL, id } = wish
+        return <Wish id={id} key={i} title={title} description={description} imageURL={imageURL} />
       })}
-      <button onClick={upload}>upload</button>
-      {/* <button onClick={upload}>download</button> */}
     </div>
   )
 }
