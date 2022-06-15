@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from '../store'
 import { WishInterface } from './Wish/Wish'
 
 export interface WishesState {
@@ -16,14 +17,17 @@ export const wishesSlice = createSlice({
     addWish: (state, action: PayloadAction<WishInterface>) => {
       state.wishes.push(action.payload)
     },
+    addWishList: (state, action: PayloadAction<WishInterface[]>) => {
+      state.wishes = action.payload
+    },
     removeWish: (state, action: PayloadAction<WishInterface>) => {
       state.wishes = state.wishes.filter((wish) => wish.id !== action.payload.id)
     },
   },
 })
 
-export const { addWish, removeWish } = wishesSlice.actions
+export const { addWish, addWishList, removeWish } = wishesSlice.actions
 
-export const getWishes = (state: WishesState) => state.wishes
+export const getWishes = (state: RootState) => state.wishList.wishes
 
 export const wishesReducer = wishesSlice.reducer

@@ -24,7 +24,8 @@
   },
   "plugins": ["react", "@typescript-eslint", "eslint-plugin-prettier", "prettier"],
   "rules": {
-    "indent": ["error", 2],
+    // "@typescript-eslint/indent": ["error"],
+    // "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "never"]

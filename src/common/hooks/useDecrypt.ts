@@ -18,6 +18,7 @@ export const useDecrypt = (encryptedString, key: string) => {
   useEffect(() => {
     const getDecrypted = async () => {
       if (!encryptedString) return null
+
       setIsDecrypting(true)
       const encryptedData = StringToArrayBuffer(encryptedString)
       const keyForDecrypt = await window.crypto.subtle.importKey(
@@ -46,7 +47,9 @@ export const useDecrypt = (encryptedString, key: string) => {
     }
 
     if (decryptedData === null && isDecrypting === null) {
-      getDecrypted().then((res) => setDecryptedData(res))
+      getDecrypted().then((res) => {
+        return setDecryptedData(res)
+      })
     }
   }, [decryptedData, encryptedString, isDecrypting, key])
 

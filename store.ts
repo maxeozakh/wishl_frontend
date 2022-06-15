@@ -3,7 +3,7 @@ import { wishesReducer } from './src/wishesSlice'
 
 export const store = configureStore({
   reducer: {
-    wishes: wishesReducer,
+    wishList: wishesReducer,
   },
 })
 

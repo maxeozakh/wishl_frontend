@@ -1,0 +1,28 @@
+/* src/App.css */
+.app {
+  margin: 20px;
+}
+
+/* index.css */
+body {
+  background-color: rgb(250 243 249);
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+input {
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin: 0 0 10px;
+  border: 1px solid lightgray;
+}
+button {
+  padding: 5px 10px;
+  background: rgb(248, 232, 246);
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  font-weight: bold;
+}
+img {
+  max-width: 150px;
+}
