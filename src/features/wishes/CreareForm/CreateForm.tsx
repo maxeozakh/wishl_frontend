@@ -2,6 +2,7 @@ import { nanoid } from 'nanoid'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getWishes, addWish } from '../slice'
+import { UploadImage } from '../UploadImage'
 import { WishInterface } from '../Wish/Wish'
 
 interface FormData {
@@ -41,6 +42,7 @@ export const CreateForm: React.FC = () => {
           placeholder="description"
         ></input>
       </div>
+      <UploadImage />
       <button onClick={handleAddWish}>+ wish</button>
     </div>
   )
