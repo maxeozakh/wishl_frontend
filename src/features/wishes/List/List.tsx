@@ -1,9 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { getWishes } from '../slice'
 import { Wish } from '../Wish/Wish'
-import { getWishes } from '../wishesSlice'
 
-export const WishList: React.FC = () => {
+
+export const List: React.FC = () => {
   const wishes = useSelector(getWishes)
 
   return (

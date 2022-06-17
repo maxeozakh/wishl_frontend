@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
-import { useEffect, useState } from 'react'
-import { WishInterface } from '../../Wish/Wish'
+import { useState } from 'react'
+import { WishInterface } from '../wishes/Wish/Wish'
 
 export interface EncryptedData {
   uid: string

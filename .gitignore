@@ -1,2 +1,5 @@
 node_modules
 build
+.env
+local/index.js
+local/index.css

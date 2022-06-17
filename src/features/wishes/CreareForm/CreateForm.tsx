@@ -1,10 +1,17 @@
 import { nanoid } from 'nanoid'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addWish, getWishes } from '../wishesSlice'
+import { getWishes, addWish } from '../slice'
+import { WishInterface } from '../Wish/Wish'
 
-export const NewWishForm: React.FC = () => {
-  const [formData, setFormData] = useState({
+interface FormData {
+  title: string | null
+  description: string | null
+  id: string
+}
+
+export const CreateForm: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
     title: null,
     description: null,
     id: nanoid(),
@@ -12,6 +19,10 @@ export const NewWishForm: React.FC = () => {
   const dispatch = useDispatch()
   const wishes = useSelector(getWishes)
   const title = wishes.length > 0 ? 'your wishlist ✨' : 'add something to your wishlist ✨'
+
+  const handleAddWish = () => {
+    dispatch(addWish(formData as WishInterface))
+  }
 
   return (
     <div>
@@ -30,7 +41,7 @@ export const NewWishForm: React.FC = () => {
           placeholder="description"
         ></input>
       </div>
-      <button onClick={() => dispatch(addWish(formData))}>+ wish</button>
+      <button onClick={handleAddWish}>+ wish</button>
     </div>
   )
 }

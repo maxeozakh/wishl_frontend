@@ -97,6 +97,6 @@ describe('useFetch', () => {
     })
 
     await waitForNextUpdate()
-    expect(result.current.error.toString()).toBe('Error')
+    expect(result.current.error?.toString()).toBe('Error')
   })
 })

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { wishesReducer } from './src/wishesSlice'
+import { wishesReducer } from './src/features/wishes/slice'
 
 export const store = configureStore({
   reducer: {

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
-import { useDownloadWishList } from './common/hooks/useDownloadWishList'
-import { addWishList } from './wishesSlice'
+import { addWishList } from './slice'
+import { useDownloadWishList } from './useDownloadWishList'
 
 interface DownloadProps {
   keyForDecrypt: string

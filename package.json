@@ -6,19 +6,18 @@
   "scripts": {
     "test": "jest -o",
     "start": "node watch.js",
-    
     "build": "esbuild index.tsx --bundle --minify --outfile=build/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
-    "esbuild": "^0.14.43",
     "eslint-plugin-react-hooks": "^4.5.0",
     "nanoid": "^3.3.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-redux": "^8.0.2"
+    "react-redux": "^8.0.2",
+    "esbuild": "^0.14.44"
   },
   "devDependencies": {
     "@swc/jest": "^0.2.17",
@@ -29,6 +28,8 @@
     "@types/react-dom": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
+    "dotenv": "^16.0.1",
+    "esbuild-envfile-plugin": "^1.0.3",
     "eslint": "^8.8.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",

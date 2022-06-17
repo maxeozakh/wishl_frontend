@@ -1,5 +1,5 @@
-import { useDecrypt } from './useDecrypt'
-import { endpoints, useFetch } from './useFetch'
+import { endpoints, useFetch } from '../../common/useFetch'
+import { useDecrypt } from '../crypto/useDecrypt'
 
 export const useDownloadWishList = ({ uid, keyForDecrypt }) => {
   const { request, data, isFetching } = useFetch(`${endpoints.getWishList}/${uid}`)

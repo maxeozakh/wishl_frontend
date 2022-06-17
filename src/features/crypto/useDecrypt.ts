@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { WishInterface } from '../../Wish/Wish'
+import { WishInterface } from '../wishes/Wish/Wish'
+
 
 const StringToArrayBuffer = (str) => {
   const buf = new ArrayBuffer(str.length)

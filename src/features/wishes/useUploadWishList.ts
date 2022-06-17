@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { WishInterface } from '../../Wish/Wish'
-import { useEncrypt } from './useEncrypt'
-import { endpoints, useFetch } from './useFetch'
+import { useFetch, endpoints } from '../../common/useFetch'
+import { useEncrypt } from '../crypto/useEncrypt'
+import { WishInterface } from './Wish/Wish'
 
 export const useUploadWishList = (wishes: WishInterface[]) => {
   const [encryptedData, setEncryptedData] = useState<null | {
@@ -15,7 +15,7 @@ export const useUploadWishList = (wishes: WishInterface[]) => {
   const upload = () => {
     if (isGenerating === null)
       getEncrypted().then((res) => {
-        request('POST', res)
+        res && request('POST', res)
         setEncryptedData(res)
       })
     else console.log('Still generating...')

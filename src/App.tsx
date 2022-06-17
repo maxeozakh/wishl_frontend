@@ -1,8 +1,8 @@
 import React from 'react'
-import { Download } from './Download'
-import { NewWishForm } from './NewWishForm/NewWishForm'
-import { ShareButton } from './ShareButton/ShareButton'
-import { WishList } from './WishList/WishList'
+import { CreateForm } from './features/wishes/CreareForm/CreateForm'
+import { Download } from './features/wishes/Download'
+import { List } from './features/wishes/List/List'
+import { ShareButton } from './features/wishes/ShareButton/ShareButton'
 
 export const App = () => {
   const params = new URLSearchParams(window.location.search)
@@ -11,8 +11,8 @@ export const App = () => {
 
   return (
     <div className="app" data-testid="app">
-      <NewWishForm />
-      <WishList />
+      <CreateForm />
+      <List />
       <ShareButton />
       {uid && <Download uid={uid} keyForDecrypt={key} />}
     </div>

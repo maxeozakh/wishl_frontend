@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { EncryptedData } from './useEncrypt'
+import { EncryptedData } from '../features/crypto/useEncrypt'
 
 interface UseFetch {
-  isFetching: boolean
-  data: Record<string, unknown>
-  error: Error
+  isFetching: boolean | null
+  data: Record<string, unknown> | null
+  error: Error | null
   request: (method?: string, body?: EncryptedData) => void
 }
 
@@ -16,14 +16,13 @@ export const endpoints = {
 }
 export const useFetch = (endpoint: string): UseFetch => {
   const [isFetching, setIsFetching] = useState<null | boolean>(null)
-  const [data, setData] = useState<Record<string, unknown>>(null)
-  const [error, setError] = useState<Error>(null)
+  const [data, setData] = useState<Record<string, unknown> | null>(null)
+  const [error, setError] = useState<Error | null>(null)
   const [isMounted, setMounted] = useState<boolean>(true)
 
   const request = async (method = 'GET', body?: EncryptedData) => {
     isMounted && setIsFetching(true)
 
-    
     try {
       const response = await fetch(endpoint, {
         mode: 'cors',
