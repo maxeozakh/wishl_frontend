@@ -1,0 +1,7 @@
+.global-loader {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    opacity: 0;
+    transition: .3s ease-in-out;
+}

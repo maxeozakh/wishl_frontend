@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { loaderReducer } from './src/features/loader/slice'
 import { wishesReducer } from './src/features/wishes/slice'
 
 export const store = configureStore({
   reducer: {
     wishList: wishesReducer,
+    loader: loaderReducer,
   },
 })
 

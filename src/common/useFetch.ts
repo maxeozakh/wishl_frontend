@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { EncryptedData } from '../features/crypto/useEncrypt'
+import { useDispatch } from 'react-redux'
+import { setIsLoading } from '../features/loader/slice'
 
 interface UseFetch {
   isFetching: boolean | null
   data: Record<string, unknown> | null
   error: Error | null
-  request: (method?: string, body?: EncryptedData) => void
+  request: (endpoint: string, method?: string, body?: unknown) => void
 }
 
 export const SERVER_ADDRESS = 'http://127.0.0.1:5000'
@@ -13,21 +14,24 @@ export const SERVER_ADDRESS = 'http://127.0.0.1:5000'
 export const endpoints = {
   createWishList: `${SERVER_ADDRESS}/create`,
   getWishList: `${SERVER_ADDRESS}`,
+  getS3SignedRequest: `${SERVER_ADDRESS}/s3/get_sign`,
+  uploadImage: `${SERVER_ADDRESS}/s3/upload`,
 }
-export const useFetch = (endpoint: string): UseFetch => {
+export const useFetch = (): UseFetch => {
+  const dispatch = useDispatch()
   const [isFetching, setIsFetching] = useState<null | boolean>(null)
   const [data, setData] = useState<Record<string, unknown> | null>(null)
   const [error, setError] = useState<Error | null>(null)
   const [isMounted, setMounted] = useState<boolean>(true)
 
-  const request = async (method = 'GET', body?: EncryptedData) => {
+  const request = async (endpoint: string, method?: string, body?: unknown) => {
     isMounted && setIsFetching(true)
-
     try {
+      dispatch(setIsLoading(true))
       const response = await fetch(endpoint, {
         mode: 'cors',
-        method,
-        body: JSON.stringify(body),
+        method: method || 'GET',
+        body,
         headers: { 'Content-Type': 'application/json' },
       })
 
@@ -39,15 +43,17 @@ export const useFetch = (endpoint: string): UseFetch => {
     } catch (err) {
       isMounted && setError(err)
     } finally {
+      dispatch(setIsLoading(false))
       isMounted && setIsFetching(false)
     }
   }
 
   useEffect(() => {
     return () => {
+      dispatch(setIsLoading(false))
       setMounted(false)
     }
-  }, [])
+  }, [dispatch])
 
   return { isFetching, data, error, request }
 }
