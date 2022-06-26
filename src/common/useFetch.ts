@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setIsLoading } from '../features/loader/slice'
 
@@ -6,10 +6,18 @@ interface UseFetch {
   isFetching: boolean | null
   data: Record<string, unknown> | null
   error: Error | null
-  request: (endpoint: string, method?: string, body?: unknown) => void
+  request: (
+    endpoint: string,
+    method?: string,
+    body?: BodyInit,
+    headers?: Record<string, string>,
+  ) => void
 }
 
-export const SERVER_ADDRESS = 'http://127.0.0.1:5000'
+
+
+export const SERVER_ADDRESS = 'https://wishl-backend.herokuapp.com'
+// export const SERVER_ADDRESS = 'http://127.0.0.1:5000'
 
 export const endpoints = {
   createWishList: `${SERVER_ADDRESS}/create`,
@@ -24,29 +32,39 @@ export const useFetch = (): UseFetch => {
   const [error, setError] = useState<Error | null>(null)
   const [isMounted, setMounted] = useState<boolean>(true)
 
-  const request = async (endpoint: string, method?: string, body?: unknown) => {
-    isMounted && setIsFetching(true)
-    try {
+  const request = useCallback(
+    async (
+      endpoint: string,
+      method?: string,
+      body?: BodyInit,
+      headers?: Record<string, string>,
+    ) => {
+      isMounted && setIsFetching(true)
       dispatch(setIsLoading(true))
-      const response = await fetch(endpoint, {
-        mode: 'cors',
-        method: method || 'GET',
-        body,
-        headers: { 'Content-Type': 'application/json' },
-      })
+      try {
+        const params: RequestInit = {
+          mode: 'cors',
+          method: method || 'GET',
+          headers: headers || { 'Content-Type': 'application/json' },
+          body,
+        }
 
-      const responseData = await response.json()
-      if (!response.ok) {
-        throw new Error(responseData.message)
+        const response = await fetch(endpoint, params)
+
+        const responseData = await response.json()
+        if (!response.ok) {
+          throw new Error(responseData.message)
+        }
+        isMounted && setData(responseData)
+      } catch (err) {
+        isMounted && setError(err)
+      } finally {
+        dispatch(setIsLoading(false))
+        isMounted && setIsFetching(false)
       }
-      isMounted && setData(responseData)
-    } catch (err) {
-      isMounted && setError(err)
-    } finally {
-      dispatch(setIsLoading(false))
-      isMounted && setIsFetching(false)
-    }
-  }
+    },
+    [dispatch, isMounted],
+  )
 
   useEffect(() => {
     return () => {

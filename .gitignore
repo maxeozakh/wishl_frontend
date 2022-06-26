@@ -1,5 +1,6 @@
 node_modules
 build
 .env
-local/index.js
-local/index.css
+public/index.js
+public/index.css
+.vercel

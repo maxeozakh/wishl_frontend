@@ -1,7 +1,7 @@
 require('esbuild')
   .build({
-    watch: {},
     bundle: true,
+    watch: false,
     entryPoints: ['index.tsx', 'index.css'],
     outdir: 'public',
   })

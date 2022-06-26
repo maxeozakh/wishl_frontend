@@ -1,14 +1,15 @@
 import { nanoid } from 'nanoid'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getWishes, addWish } from '../slice'
-import { UploadImage } from '../UploadImage'
+import { UploadImage } from './UploadImage'
 import { WishInterface } from '../Wish/Wish'
 
 interface FormData {
   title: string | null
   description: string | null
   id: string
+  imageURL?: string
 }
 
 export const CreateForm: React.FC = () => {
@@ -23,6 +24,11 @@ export const CreateForm: React.FC = () => {
 
   const handleAddWish = () => {
     dispatch(addWish(formData as WishInterface))
+  }
+
+  const handleUpload = (imageURL: string) => {
+    console.log(imageURL)
+    setFormData({ ...formData, imageURL })
   }
 
   return (
@@ -42,7 +48,7 @@ export const CreateForm: React.FC = () => {
           placeholder="description"
         ></input>
       </div>
-      <UploadImage />
+      <UploadImage handleUpload={handleUpload} />
       <button onClick={handleAddWish}>+ wish</button>
     </div>
   )

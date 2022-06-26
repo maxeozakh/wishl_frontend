@@ -5,7 +5,6 @@ import { Download } from './features/wishes/Download'
 import { List } from './features/wishes/List/List'
 import { ShareButton } from './features/wishes/ShareButton/ShareButton'
 
-
 export const App = () => {
   const params = new URLSearchParams(window.location.search)
   const key = window.location.hash.slice(1)
@@ -13,9 +12,9 @@ export const App = () => {
 
   return (
     <div className="app" data-testid="app">
-      <CreateForm />
+      {!uid && <CreateForm />}
       <List />
-      <ShareButton />
+      {!uid && <ShareButton />}
       <Loader />
       {uid && <Download uid={uid} keyForDecrypt={key} />}
     </div>

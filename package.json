@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest -o",
     "start": "node watch.js",
-    "build": "esbuild index.tsx --bundle --minify --outfile=build/index.js"
+    "build": "node build.js"
   },
   "author": "",
   "license": "ISC",
