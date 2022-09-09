@@ -34,8 +34,6 @@ export const UploadImage: React.FC<UploadImageProps> = ({ handleUpload }) => {
       {imageURL && (
         <div>
           <img alt="not fount" width={'250px'} src={imageURL} />
-          {/* <br /> */}
-          <button onClick={() => setSelectedImage(null)}>Remove</button>
         </div>
       )}
       <br />

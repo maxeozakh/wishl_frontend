@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getWishes, addWish } from '../slice'
 import { UploadImage } from './UploadImage'
@@ -27,7 +27,6 @@ export const CreateForm: React.FC = () => {
   }
 
   const handleUpload = (imageURL: string) => {
-    console.log(imageURL)
     setFormData({ ...formData, imageURL })
   }
 
@@ -49,7 +48,7 @@ export const CreateForm: React.FC = () => {
         ></input>
       </div>
       <UploadImage handleUpload={handleUpload} />
-      <button onClick={handleAddWish}>+ wish</button>
+      <button onClick={handleAddWish}>add wish</button>
     </div>
   )
 }

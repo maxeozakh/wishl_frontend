@@ -17,7 +17,6 @@ interface UseFetch {
 
 
 export const SERVER_ADDRESS = 'https://wishl-backend.herokuapp.com'
-// export const SERVER_ADDRESS = 'http://127.0.0.1:5000'
 
 export const endpoints = {
   createWishList: `${SERVER_ADDRESS}/create`,

@@ -6,6 +6,7 @@ import { useUploadWishList } from '../useUploadWishList'
 export const ShareButton: React.FC = () => {
   const wishes = useSelector(getWishes)
   const { uid, key, upload, data } = useUploadWishList(wishes)
+  const link = `${window.location}?i=${uid}#${key}`
 
   return (
     <div>
@@ -19,9 +20,9 @@ export const ShareButton: React.FC = () => {
       {data && (
         <div>
           <br />
-          <a href={`${window.location}?i=${uid}#${key}`}>{`${window.location}?i=...#${key?.slice(
-            5,
-          )}`}</a>
+          <a href={link} target="_blank" rel="noreferrer">
+            {link}
+          </a>
         </div>
       )}
     </div>
