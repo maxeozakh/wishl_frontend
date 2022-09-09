@@ -15,7 +15,12 @@ export const useUploadWishList = (wishes: WishInterface[]) => {
   const upload = () => {
     if (isGenerating === null) {
       getEncrypted().then((res) => {
-        res && request(endpoints.createWishList, 'POST', JSON.stringify(res))
+        res &&
+          request(
+            endpoints.createWishList,
+            'POST',
+            JSON.stringify({ secrets: res.secrets, uid: res.uid }),
+          )
         setEncryptedData(res)
       })
     } else console.log('Still generating...')
