@@ -1,5 +1,11 @@
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook, cleanup } from '@testing-library/react-hooks'
 import { useFetch } from './useFetch'
+
+const mockDispatch = jest.fn()
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(),
+  useDispatch: () => mockDispatch,
+}))
 
 describe('useFetch', () => {
   const setupFetchStub = (data: Record<string, unknown>, isOk = true) => {
@@ -24,10 +30,13 @@ describe('useFetch', () => {
     global.fetch.mockClear()
     global.fetch = globalFetch
   })
+  afterEach(() => {
+    cleanup()
+  })
 
   const endpoint = 'https://api.github.com/users/octocat'
   test('return isFetching, data, error, request', async () => {
-    const { result } = renderHook(() => useFetch(endpoint))
+    const { result } = renderHook(() => useFetch())
 
     const { isFetching, data, error, request } = result.current
     expect(isFetching).toBe(null)
@@ -37,20 +46,22 @@ describe('useFetch', () => {
   })
 
   test('isFetching is true before response', async () => {
-    const { result } = renderHook(() => useFetch(endpoint))
+    const { result, waitForNextUpdate } = renderHook(() => useFetch())
 
     act(() => {
-      result.current.request()
+      result.current.request(endpoint)
     })
 
-    expect(result.current.isFetching).toBe(true)
+    const resultBeforeResponse = result.current
+    await waitForNextUpdate()
+    expect(resultBeforeResponse.isFetching).toBe(true)
   })
 
   test('isFetching is false after response', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useFetch(endpoint))
+    const { result, waitForNextUpdate } = renderHook(() => useFetch())
 
     act(() => {
-      result.current.request()
+      result.current.request(endpoint)
     })
 
     await waitForNextUpdate()
@@ -58,20 +69,22 @@ describe('useFetch', () => {
   })
 
   test('data is null before response', async () => {
-    const { result } = renderHook(() => useFetch(endpoint))
+    const { result, waitForNextUpdate } = renderHook(() => useFetch())
 
     act(() => {
-      result.current.request()
+      result.current.request(endpoint)
     })
+    const resultBeforeResponse = result.current
+    await waitForNextUpdate()
 
-    expect(result.current.data).toBe(null)
+    expect(resultBeforeResponse.data).toBe(null)
   })
 
   test('data is set after response', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useFetch(endpoint))
+    const { result, waitForNextUpdate } = renderHook(() => useFetch())
 
     act(() => {
-      result.current.request()
+      result.current.request(endpoint)
     })
 
     await waitForNextUpdate()
@@ -79,21 +92,23 @@ describe('useFetch', () => {
   })
 
   test('error is null before response', async () => {
-    const { result } = renderHook(() => useFetch(endpoint))
+    const { result, waitForNextUpdate } = renderHook(() => useFetch())
 
     act(() => {
-      result.current.request()
+      result.current.request(endpoint)
     })
+    const resultBeforeResponse = result.current
+    await waitForNextUpdate()
 
-    expect(result.current.error).toBe(null)
+    expect(resultBeforeResponse.error).toBe(null)
   })
 
   test('error is set after response if server response isnt ok', async () => {
     global.fetch = jest.fn().mockImplementation(setupFetchStub({}, false))
-    const { result, waitForNextUpdate } = renderHook(() => useFetch(endpoint))
+    const { result, waitForNextUpdate } = renderHook(() => useFetch())
 
     act(() => {
-      result.current.request()
+      result.current.request(endpoint)
     })
 
     await waitForNextUpdate()
