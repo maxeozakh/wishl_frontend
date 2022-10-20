@@ -1,34 +1,9 @@
-import { nanoid } from 'nanoid'
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getWishes, addWish } from '../slice'
+import React from 'react'
 import { UploadImage } from './UploadImage'
-import { WishInterface } from '../Wish/Wish'
-
-interface FormData {
-  title: string | null
-  description: string | null
-  id: string
-  imageURL?: string
-}
+import { useCreateForm } from './useCreateForm'
 
 export const CreateForm: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
-    title: null,
-    description: null,
-    id: nanoid(),
-  })
-  const dispatch = useDispatch()
-  const wishes = useSelector(getWishes)
-  const title = wishes.length > 0 ? 'your wishlist ✨' : 'add something to your wishlist ✨'
-
-  const handleAddWish = () => {
-    dispatch(addWish(formData as WishInterface))
-  }
-
-  const handleUpload = (imageURL: string) => {
-    setFormData({ ...formData, imageURL })
-  }
+  const { formData, setFormData, handleAddWish, handleUpload, title } = useCreateForm()
 
   return (
     <div>
