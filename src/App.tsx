@@ -13,8 +13,8 @@ export const App = () => {
   return (
     <div className="app" data-testid="app">
       {!uid && <CreateForm />}
-      <List />
       {!uid && <ShareButton />}
+      <List />
       <Loader />
       {uid && <Download uid={uid} keyForDecrypt={key} />}
     </div>

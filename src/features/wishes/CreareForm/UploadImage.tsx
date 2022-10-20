@@ -29,7 +29,7 @@ export const UploadImage: React.FC<UploadImageProps> = ({ handleUpload }) => {
   }, [data])
 
   return (
-    <div>
+    <div role="upload-image">
       {isFetching && <div>Loading...</div>}
       {imageURL && (
         <div>

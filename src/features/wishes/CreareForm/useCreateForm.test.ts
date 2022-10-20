@@ -70,7 +70,7 @@ describe('useCreateForm', () => {
 
     expect(result.current.title).toBe('your wishlist ✨')
   })
-  it('return correct title when has no wishes', () => {
+  it('return correct title when no wishes presented', () => {
     setSelectorValue([])
     const { result } = renderHook(() => useCreateForm())
 
