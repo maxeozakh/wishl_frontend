@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, getByRole, screen } from '@testing-library/react'
+import { render, getByRole, screen, fireEvent } from '@testing-library/react'
 import { CreateForm } from './CreateForm'
 
 jest.mock('./UploadImage', () => {
@@ -7,7 +7,8 @@ jest.mock('./UploadImage', () => {
     UploadImage: jest.fn(() => <div role="upload-image">Upload Image</div>),
   }
 })
-
+const handleAddWishSpy = jest.fn()
+const setFormDataSpy = jest.fn()
 jest.mock('./useCreateForm', () => ({
   useCreateForm: jest.fn(() => ({
     formData: {
@@ -15,12 +16,16 @@ jest.mock('./useCreateForm', () => ({
       description: 'mmm',
       id: '1',
     },
-    setFormData: jest.fn(),
-    handleAddWish: jest.fn(),
+    setFormData: setFormDataSpy,
+    handleAddWish: handleAddWishSpy,
     handleUpload: jest.fn(),
     title: 'Create a wish',
   })),
 }))
+
+beforeEach(() => {
+  jest.clearAllMocks()
+})
 
 describe('CreateForm', () => {
   it('should render form', () => {
@@ -52,5 +57,56 @@ describe('CreateForm', () => {
     const { container } = render(<CreateForm />)
 
     expect(getByRole(container, 'button')).toBeTruthy()
+  })
+
+  it('when button clicked handleAddWish should be called', () => {
+    const { container } = render(<CreateForm />)
+
+    getByRole(container, 'button').click()
+
+    expect(handleAddWishSpy).toBeCalled()
+  })
+
+  it('when title input changed setFormData should be called', () => {
+    const { container } = render(<CreateForm />)
+
+    const input = getByRole(container, 'input-title')
+    fireEvent.change(input, { target: { value: 'o wow' } })
+
+    expect(setFormDataSpy).toBeCalled()
+  })
+
+  it('when title input changed setFormData should be called with correct arguments', () => {
+    const { container } = render(<CreateForm />)
+
+    const input = getByRole(container, 'input-title')
+    fireEvent.change(input, { target: { value: 'o wowwowowo' } })
+
+    expect(setFormDataSpy).toBeCalledWith({
+      title: 'o wowwowowo',
+      description: 'mmm',
+      id: '1',
+    })
+  })
+  it('when description input changed setFormData should be called', () => {
+    const { container } = render(<CreateForm />)
+
+    const input = getByRole(container, 'input-description')
+    fireEvent.change(input, { target: { value: 'oh not really wow' } })
+
+    expect(setFormDataSpy).toBeCalled()
+  })
+
+  it('when description input changed setFormData should be called with correct arguments', () => {
+    const { container } = render(<CreateForm />)
+
+    const input = getByRole(container, 'input-description')
+    fireEvent.change(input, { target: { value: 'oh not really wow' } })
+
+    expect(setFormDataSpy).toBeCalledWith({
+      title: 'o wow',
+      description: 'oh not really wow',
+      id: '1',
+    })
   })
 })

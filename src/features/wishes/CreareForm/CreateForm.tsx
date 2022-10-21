@@ -14,12 +14,14 @@ export const CreateForm: React.FC = () => {
         <input
           onChange={(event) => setFormData({ ...formData, title: event.target.value })}
           placeholder="title"
+          role="input-title"
         />
       </div>
       <div>
         <input
           onChange={(event) => setFormData({ ...formData, description: event.target.value })}
           placeholder="description"
+          role="input-description"
         />
       </div>
       <UploadImage handleUpload={handleUpload} />
