@@ -2,7 +2,7 @@ import React from 'react'
 import { render, getByRole, screen, fireEvent } from '@testing-library/react'
 import { CreateForm } from './CreateForm'
 
-jest.mock('./UploadImage', () => {
+jest.mock('../UploadImage/UploadImage', () => {
   return {
     UploadImage: jest.fn(() => <div role="upload-image">Upload Image</div>),
   }

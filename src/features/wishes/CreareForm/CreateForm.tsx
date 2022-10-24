@@ -1,5 +1,5 @@
 import React from 'react'
-import { UploadImage } from './UploadImage'
+import { UploadImage } from '../UploadImage/UploadImage'
 import { useCreateForm } from './useCreateForm'
 
 export const CreateForm: React.FC = () => {
@@ -25,7 +25,9 @@ export const CreateForm: React.FC = () => {
         />
       </div>
       <UploadImage handleUpload={handleUpload} />
-      <button role="button" onClick={handleAddWish}>add wish</button>
+      <button role="button" onClick={handleAddWish}>
+        add wish
+      </button>
     </div>
   )
 }
