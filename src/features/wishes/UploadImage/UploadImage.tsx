@@ -9,16 +9,22 @@ export const UploadImage: React.FC<UploadImageProps> = ({ handleUpload }) => {
   const { isFetching, imageURL, setSelectedImage } = useUploadImage(handleUpload)
 
   return (
-    <div role="upload-image">
-      {isFetching && <div>Loading...</div>}
+    <div data-testid="upload-image">
+      {isFetching && <div data-testid="upload-image-loader">Loading...</div>}
       {imageURL && (
         <div>
-          <img alt="image of the wish" width={'250px'} src={imageURL} />
+          <img
+            data-testid="upload-image-img"
+            alt="image of the wish"
+            width={'250px'}
+            src={imageURL}
+          />
         </div>
       )}
       <br />
       <br />
       <input
+        data-testid="upload-image-input"
         type="file"
         name="myImage"
         onChange={(event) => {
